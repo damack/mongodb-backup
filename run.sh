@@ -42,20 +42,6 @@ echo "=> Backup done"
 EOF
 chmod +x /backup.sh
 
-echo "=> Creating restore script"
-rm -f /restore.sh
-cat <<EOF >> /restore.sh
-#!/bin/bash
-echo "=> Restore database from \$1"
-if mongorestore --host ${MONGODB_HOST} --port ${MONGODB_PORT} ${USER_STR}${PASS_STR} \$1; then
-    echo "   Restore succeeded"
-else
-    echo "   Restore failed"
-fi
-echo "=> Done"
-EOF
-chmod +x /restore.sh
-
 touch /mongo_backup.log
 tail -F /mongo_backup.log &
 
